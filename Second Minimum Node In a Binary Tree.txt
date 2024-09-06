@@ -1,0 +1,43 @@
+namespace Second_Minimum_Node_In_a_Binary_Tree
+{
+    public class TreeNode
+    {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+        public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
+        {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+    class Solution
+    { 
+        public int FindSecondMinimumValue(TreeNode root)
+    {
+        if (root == null) return -1;
+
+        int secondMin = -1;
+        int firstMin = root.val;
+
+        void Traverse(TreeNode node)
+        {
+            if (node == null) return;
+
+            if (node.val > firstMin)
+            {
+                if (secondMin == -1 || node.val < secondMin)
+                {
+                    secondMin = node.val;
+                }
+            }
+
+            Traverse(node.left);
+            Traverse(node.right);
+        }
+
+        Traverse(root);
+        return secondMin;
+    }
+    
